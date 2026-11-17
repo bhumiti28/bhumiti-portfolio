@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CountUp } from "@/components/count-up";
 import { LocalClock } from "@/components/local-clock";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Typewriter } from "@/components/typewriter";
 import {
   education,
   experience,
@@ -75,8 +76,9 @@ export function Portfolio() {
             </Fragment>
           ))}
         </h1>
+        <Typewriter className="mt-5 min-h-[1.6em] font-mono text-sm text-foreground/55 sm:text-base" />
         <p
-          className="intro mt-6 max-w-2xl text-lg leading-8 text-foreground/70"
+          className="intro mt-5 max-w-2xl text-lg leading-8 text-foreground/70"
           style={{ "--delay": "520ms" } as CSSProperties}
         >
           {profile.hero}
