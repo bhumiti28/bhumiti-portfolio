@@ -11,11 +11,20 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/bhumiti-gohel",
   linkedinHandle: "bhumiti-gohel",
   resumePdf: "/Bhumiti-Gohel-Resume.pdf",
+  eyebrow: "Software developer · Healthcare systems",
+  headline: "Systems that hold up in production.",
   hero:
-    "I build healthcare and enterprise systems around SQL, ETL, and HL7, including 20+ integrations that cut manual reconciliation by 40%.",
+    "I build healthcare and enterprise backends with the same care as the data they carry: SQL, ETL, and HL7 integrations that stay accurate when the volume is high.",
   summary:
     "Software developer with experience across healthcare and enterprise systems, specializing in SQL, PL/SQL, Oracle and PostgreSQL, stored procedures, ETL workflows, and HL7 healthcare data integration. Skilled in data ingestion, schema design, validation, query optimization, and production troubleshooting. Delivered 20+ system integrations, reduced manual reconciliation by 40%, and improved API response time by 35% through database and backend performance optimization.",
 } as const;
+
+export const proof = [
+  { value: "20+", label: "System integrations" },
+  { value: "40%", label: "Less manual reconciliation" },
+  { value: "35%", label: "Faster API responses" },
+  { value: "99.9%", label: "Uptime on critical paths" },
+] as const;
 
 export const sections = [
   { id: "about", label: "About" },
@@ -106,6 +115,7 @@ export const experience = [
     location: "New York, USA",
     dates: "Jan 2025 – Present",
     stack: "Python, FastAPI, Node.js, OAuth2/JWT, Redis, React/TypeScript, AWS, Docker",
+    line: "Own production healthcare services in Python, FastAPI, and Node.js: 20+ integrations cut manual reconciliation by 40%, and API response time fell 35% at 99.9% uptime.",
     bullets: [
       "Own production healthcare backend services using Python, FastAPI, Node.js, and REST APIs, improving patient workflow efficiency by 27% through automation, API refactoring, reusable service patterns, and reliable integration design.",
       "Design data ingestion and API integrations for 20+ internal and third-party systems with OAuth2/JWT, RBAC, schema validation, audit logging, and error handling, reducing manual data reconciliation by 40%.",
@@ -121,6 +131,7 @@ export const experience = [
     dates: "Aug 2020 – Jul 2023",
     stack:
       "Python, JavaScript, SQL, Oracle, PostgreSQL, Docker, Jenkins, GitHub Actions, GCP",
+    line: "Built enterprise ingestion and 15+ REST APIs, and Oracle/PostgreSQL ETL that cut data-handling errors by 50% and search latency by 40%.",
     bullets: [
       "Developed enterprise data ingestion workflows and 15+ REST APIs using Python, JavaScript, SQL, and cloud-native patterns, improving data accuracy by 25% and integration reliability by 40%.",
       "Engineered Oracle and PostgreSQL ETL workflows with stored procedures, schema design, validation checks, and indexing, reducing data-handling errors by 50% and improving audit readiness.",

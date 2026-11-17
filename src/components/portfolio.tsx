@@ -1,357 +1,249 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ContactForm } from "@/components/contact-form";
-import { SectionNav } from "@/components/section-nav";
+import { LocalClock } from "@/components/local-clock";
 import {
   education,
   experience,
   githubWork,
   profile,
   projects,
-  skillGroups,
+  proof,
 } from "@/content/profile";
+
+const featured = projects[0];
+const judge = projects[1];
 
 export function Portfolio() {
   return (
-    <div className="relative mx-auto flex min-h-full w-full max-w-6xl">
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_left,oklch(0.9_0.045_70)_0%,transparent_42%)]"
-      />
-      <aside className="sticky top-0 hidden h-dvh w-80 shrink-0 flex-col justify-between overflow-y-auto border-r border-border/80 px-8 py-10 lg:flex">
-        <div className="space-y-8">
-          <Identity />
-          <SectionNav />
-        </div>
-        <ContactLinks />
-      </aside>
-
-      <div className="min-w-0 flex-1">
-        <header className="sticky top-0 z-20 border-b border-border/80 bg-background/90 backdrop-blur lg:hidden">
-          <div className="flex items-baseline justify-between gap-4 px-5 py-3">
-            <a href="#top" className="font-serif text-lg text-foreground">
-              {profile.name}
+    <div className="min-h-full bg-background text-foreground">
+      <header className="sticky top-0 z-20 border-b border-black/5 bg-[#f5f5f7]/90 backdrop-blur">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:px-8">
+          <a href="#top" className="text-sm font-medium tracking-tight">
+            BG
+          </a>
+          <nav aria-label="Sections" className="flex items-center gap-4 text-xs tracking-[0.16em] uppercase sm:gap-6">
+            <a href="#work" className="hover:text-black/60">
+              Work
             </a>
-            <div className="flex items-center gap-4">
-              <Link
-                href="/resume"
-                className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-              >
-                Print
-              </Link>
-              <a
-                href={profile.resumePdf}
-                className="text-sm text-primary underline-offset-4 hover:underline"
-              >
-                Résumé
-              </a>
+            <a href="#journey" className="hover:text-black/60">
+              Journey
+            </a>
+            <a href="#contact" className="hover:text-black/60">
+              Contact
+            </a>
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-black/60"
+            >
+              GitHub
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <main id="top" className="mx-auto max-w-6xl px-5 pt-16 pb-24 sm:px-8 sm:pt-24">
+        <p className="flex items-center gap-2 text-sm text-black/55">
+          <span>New Jersey</span>
+          <span aria-hidden className="size-1.5 rounded-full bg-emerald-700" />
+          <LocalClock />
+        </p>
+        <p className="mt-8 text-xs tracking-[0.18em] text-black/50 uppercase">
+          {profile.eyebrow}
+        </p>
+        <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] font-medium tracking-tight sm:text-7xl">
+          {profile.headline}
+        </h1>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-black/70">
+          {profile.hero}
+        </p>
+        <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-base">
+          <TextLink href="#journey">View journey</TextLink>
+          <TextLink href={`mailto:${profile.email}`}>Let’s talk</TextLink>
+        </div>
+
+        <dl className="mt-16 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
+          {proof.map((item) => (
+            <div key={item.label}>
+              <dt className="text-4xl font-medium tracking-tight sm:text-5xl">
+                {item.value}
+              </dt>
+              <dd className="mt-2 text-xs tracking-[0.14em] text-black/50 uppercase">
+                {item.label}
+              </dd>
             </div>
+          ))}
+        </dl>
+
+        <section id="work" className="mt-28 scroll-mt-24 max-w-3xl">
+          <p className="text-xs tracking-[0.18em] text-black/45 uppercase">
+            Currently
+          </p>
+          <p className="mt-4 text-sm text-black/55">
+            {featured.title} · {profile.role}, Epic Systems
+          </p>
+          <h2 className="mt-3 text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
+            Turning noisy healthcare operations into work a team can act on.
+          </h2>
+          <p className="mt-5 text-base leading-7 text-black/75">
+            {featured.summary}
+          </p>
+          <p className="mt-8 text-xs tracking-[0.18em] text-black/45 uppercase">
+            Systems checklist
+          </p>
+          <ul className="mt-4 space-y-2 text-sm">
+            <li>Multi-agent RAG, with a human still in the approval path</li>
+            <li>Kafka and FastAPI ingestion into prioritized queues</li>
+            <li>Evals, traces, JWT/RBAC, and PII-safe logs</li>
+          </ul>
+          <p className="mt-4 text-sm text-black/50">
+            {featured.stack.join(" · ")}
+          </p>
+
+          <div className="mt-12 border-t border-black/10 pt-8">
+            <p className="text-xs tracking-[0.16em] text-black/45 uppercase">
+              {judge.kicker}
+            </p>
+            <h3 className="mt-2 text-2xl font-medium tracking-tight">
+              {judge.title}
+            </h3>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-black/70">
+              {judge.summary}
+            </p>
+            {judge.href ? (
+              <a
+                href={judge.href}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 inline-block border-b border-black/30 pb-0.5 text-sm hover:border-black"
+              >
+                {judge.linkLabel} ↗
+              </a>
+            ) : null}
           </div>
-          <SectionNav className="overflow-x-auto px-3 pb-2" />
-        </header>
 
-        <main className="px-5 py-8 sm:px-8 lg:px-14 lg:py-16">
-          <Identity className="mb-14 lg:hidden" detailed />
-          <About />
-          <Experience />
-          <Work />
-          <Education />
-          <Contact />
-        </main>
-      </div>
+          <div className="mt-12">
+            <h3 className="text-xs tracking-[0.18em] text-black/45 uppercase">
+              Also on GitHub
+            </h3>
+            <ul className="mt-4 divide-y divide-black/10 border-y border-black/10">
+              {githubWork.map((project) => (
+                <li key={project.title}>
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="grid gap-1 py-4 sm:grid-cols-[9rem_1fr_auto] sm:items-baseline sm:gap-6"
+                  >
+                    <span className="font-medium">{project.title}</span>
+                    <span className="text-sm leading-6 text-black/60">
+                      {project.summary}
+                    </span>
+                    <span className="text-sm">Code ↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section id="journey" className="mt-28 scroll-mt-24 max-w-3xl">
+          <p className="text-xs tracking-[0.18em] text-black/45 uppercase">
+            Journey
+          </p>
+          <h2 className="mt-3 text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
+            Career headlines from healthcare and enterprise systems.
+          </h2>
+          <ol className="mt-10 divide-y divide-black/10 border-y border-black/10">
+            {experience.map((role) => (
+              <li key={role.company} className="py-8">
+                <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                  <h3 className="text-xl font-medium">{role.company}</h3>
+                  <p className="text-sm text-black/50">{role.dates}</p>
+                </div>
+                <p className="mt-1 text-sm text-black/70">
+                  {role.role} · {role.location}
+                </p>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-black/80">
+                  {role.line}
+                </p>
+                <p className="mt-3 text-sm text-black/45">
+                  {role.stack.replaceAll(", ", " · ")}
+                </p>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-8 text-sm text-black/60">
+            {education.degree}, {education.school} · {education.location} ·{" "}
+            {education.date}
+          </p>
+        </section>
+
+        <section id="contact" className="mt-28 scroll-mt-24 max-w-3xl">
+          <p className="text-xs tracking-[0.18em] text-black/45 uppercase">
+            Contact
+          </p>
+          <h2 className="mt-3 max-w-3xl text-4xl leading-tight font-medium tracking-tight sm:text-6xl">
+            Let’s build something that stays up.
+          </h2>
+          <p className="mt-6 max-w-xl text-base leading-7 text-black/70">
+            If you need someone who can take a healthcare or enterprise system
+            from messy data to a reliable service, send a note. The best
+            conversations start short.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+            <TextLink href={`mailto:${profile.email}`}>Send an email</TextLink>
+            <TextLink href={profile.linkedin}>LinkedIn</TextLink>
+            <TextLink href={profile.resumePdf}>Résumé</TextLink>
+            <Link
+              href="/resume"
+              className="border-b border-black/30 pb-0.5 hover:border-black"
+            >
+              Printable page
+            </Link>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-black/10">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-8 text-sm text-black/55 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <p>Building reliable data systems for healthcare and enterprise teams.</p>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            <a href={`mailto:${profile.email}`} className="hover:text-black">
+              Email
+            </a>
+            <a href={profile.phoneHref} className="hover:text-black">
+              {profile.phone}
+            </a>
+            <a href={profile.github} className="hover:text-black">
+              GitHub
+            </a>
+            <a href={profile.linkedin} className="hover:text-black">
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
 
-function Identity({
-  className,
-  detailed = false,
-}: {
-  className?: string;
-  detailed?: boolean;
-}) {
-  return (
-    <div id="top" className={className}>
-      <p className="text-xs tracking-[0.22em] text-primary uppercase">
-        {profile.location}
-      </p>
-      <h1 className="mt-3 font-serif text-4xl leading-none tracking-tight text-foreground sm:text-5xl">
-        {profile.name}
-      </h1>
-      <p className="mt-3 text-base text-foreground">{profile.role}</p>
-      <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
-        {profile.hero}
-      </p>
-      {detailed ? <ContactLinks className="mt-6" /> : null}
-    </div>
-  );
-}
-
-function ContactLinks({ className }: { className?: string }) {
-  return (
-    <ul className={`space-y-2 text-sm ${className ?? ""}`}>
-      <li>
-        <External href={profile.github}>{profile.githubHandle}</External>
-      </li>
-      <li>
-        <External href={profile.linkedin}>LinkedIn</External>
-      </li>
-      <li>
-        <a
-          href={`mailto:${profile.email}`}
-          className="text-foreground underline-offset-4 hover:text-primary hover:underline"
-        >
-          {profile.email}
-        </a>
-      </li>
-      <li>
-        <a
-          href={profile.phoneHref}
-          className="text-foreground underline-offset-4 hover:text-primary hover:underline"
-        >
-          {profile.phone}
-        </a>
-      </li>
-      <li>
-        <a
-          href={profile.resumePdf}
-          className="text-foreground underline-offset-4 hover:text-primary hover:underline"
-        >
-          Résumé PDF
-        </a>
-      </li>
-      <li>
-        <Link
-          href="/resume"
-          className="text-foreground underline-offset-4 hover:text-primary hover:underline"
-        >
-          Printable résumé
-        </Link>
-      </li>
-    </ul>
-  );
-}
-
-function External({
+function TextLink({
   href,
   children,
 }: {
   href: string;
   children: ReactNode;
 }) {
+  const external = href.startsWith("http");
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex items-center gap-1 text-foreground underline-offset-4 hover:text-primary hover:underline"
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+      className="border-b border-black/30 pb-0.5 hover:border-black"
     >
       {children}
-      <span aria-hidden className="text-primary">
-        ↗
-      </span>
     </a>
-  );
-}
-
-function About() {
-  return (
-    <section id="about" className="scroll-mt-24">
-      <SectionLabel index="01" title="About" />
-      <p className="max-w-2xl text-base leading-7 text-foreground">
-        {profile.summary}
-      </p>
-      <dl className="mt-10 space-y-5">
-        {skillGroups.map((group) => (
-          <div key={group.label} className="grid gap-2 sm:grid-cols-[9rem_1fr]">
-            <dt className="text-sm text-muted-foreground">{group.label}</dt>
-            <dd className="flex flex-wrap gap-1.5">
-              {group.items.map((item) => (
-                <Badge key={item} variant="outline">
-                  {item}
-                </Badge>
-              ))}
-            </dd>
-          </div>
-        ))}
-      </dl>
-    </section>
-  );
-}
-
-function Experience() {
-  return (
-    <section id="experience" className="mt-20 scroll-mt-24">
-      <SectionLabel index="02" title="Experience" />
-      <ol className="space-y-12">
-        {experience.map((role) => (
-          <li key={role.company}>
-            <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-              <h3 className="font-serif text-2xl text-foreground">
-                {role.role}
-              </h3>
-              <p className="text-sm text-muted-foreground tabular-nums">
-                {role.dates}
-              </p>
-            </div>
-            <p className="mt-1 text-sm text-primary">
-              {role.company}
-              <span className="text-muted-foreground"> · {role.location}</span>
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">{role.stack}</p>
-            <ul className="mt-4 space-y-3">
-              {role.bullets.map((bullet) => (
-                <li
-                  key={bullet}
-                  className="grid grid-cols-[0.75rem_1fr] gap-2 text-sm leading-6 text-foreground"
-                >
-                  <span aria-hidden className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
-                  <span>{bullet}</span>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ol>
-    </section>
-  );
-}
-
-function Work() {
-  return (
-    <section id="work" className="mt-20 scroll-mt-24">
-      <SectionLabel index="03" title="Selected work" />
-      <ol className="space-y-6">
-        {projects.map((project) => (
-          <li
-            key={project.title}
-            className="border-l-2 border-primary/70 py-1 pl-5"
-          >
-            <p className="text-xs tracking-[0.16em] text-primary uppercase">
-              {project.kicker}
-            </p>
-            <div className="mt-2 flex flex-wrap items-baseline justify-between gap-3">
-              <h3 className="font-serif text-2xl text-foreground">
-                {project.title}
-              </h3>
-              {project.href && project.linkLabel ? (
-                <External href={project.href}>{project.linkLabel}</External>
-              ) : null}
-            </div>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-foreground">
-              {project.summary}
-            </p>
-            <ul className="mt-3 space-y-2">
-              {project.bullets.map((bullet) => (
-                <li
-                  key={bullet}
-                  className="text-sm leading-6 text-muted-foreground"
-                >
-                  {bullet}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-4 flex flex-wrap gap-1.5">
-              {project.stack.map((item) => (
-                <Badge key={item} variant="secondary">
-                  {item}
-                </Badge>
-              ))}
-            </div>
-          </li>
-        ))}
-      </ol>
-
-      <div className="mt-12">
-        <h3 className="text-sm text-muted-foreground">Also on GitHub</h3>
-        <ul className="mt-4 divide-y divide-border border-y border-border">
-          {githubWork.map((project) => (
-            <li key={project.title}>
-              <a
-                href={project.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group grid gap-1 py-4 sm:grid-cols-[10rem_1fr_auto] sm:items-baseline sm:gap-6"
-              >
-                <span className="font-medium text-foreground group-hover:text-primary">
-                  {project.title}
-                </span>
-                <span className="text-sm leading-6 text-muted-foreground">
-                  {project.summary}
-                </span>
-                <span className="text-sm text-primary">Code ↗</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-function Education() {
-  return (
-    <section id="education" className="mt-20 scroll-mt-24">
-      <SectionLabel index="04" title="Education" />
-      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-        <h3 className="font-serif text-2xl text-foreground">
-          {education.degree}
-        </h3>
-        <p className="text-sm text-muted-foreground tabular-nums">
-          {education.date}
-        </p>
-      </div>
-      <p className="mt-1 text-sm text-primary">
-        {education.school}
-        <span className="text-muted-foreground"> · {education.location}</span>
-      </p>
-    </section>
-  );
-}
-
-function Contact() {
-  return (
-    <section id="contact" className="mt-20 scroll-mt-24 pb-8">
-      <SectionLabel index="05" title="Contact" />
-      <p className="max-w-xl text-sm leading-6 text-muted-foreground">
-        For a role or a project, write to{" "}
-        <a
-          href={`mailto:${profile.email}`}
-          className="text-foreground underline-offset-4 hover:underline"
-        >
-          {profile.email}
-        </a>{" "}
-        or call{" "}
-        <a
-          href={profile.phoneHref}
-          className="text-foreground underline-offset-4 hover:underline"
-        >
-          {profile.phone}
-        </a>
-        . LinkedIn is{" "}
-        <External href={profile.linkedin}>{profile.linkedinHandle}</External>.
-      </p>
-      <div className="mt-8 max-w-xl rounded-xl border border-border bg-card p-5 sm:p-6">
-        <ContactForm />
-      </div>
-      <div className="mt-8">
-        <Button variant="outline" render={<a href={profile.resumePdf} />}>
-          Download résumé
-        </Button>
-      </div>
-    </section>
-  );
-}
-
-function SectionLabel({ index, title }: { index: string; title: string }) {
-  return (
-    <div className="mb-6 flex items-baseline gap-3">
-      <span className="font-mono text-xs text-primary">{index}</span>
-      <h2 className="font-serif text-3xl tracking-tight text-foreground">
-        {title}
-      </h2>
-    </div>
   );
 }
