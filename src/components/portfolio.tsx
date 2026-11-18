@@ -67,7 +67,7 @@ export function Portfolio() {
         >
           {profile.eyebrow}
         </p>
-        <h1 className="mt-4 max-w-5xl text-6xl leading-[0.98] font-medium tracking-tight sm:text-8xl">
+        <h1 className="mt-4 text-3xl leading-tight font-medium tracking-tight sm:text-4xl">
           {profile.name.split(" ").map((word, i) => (
             <Fragment key={word}>
               {i > 0 ? " " : null}
@@ -78,7 +78,7 @@ export function Portfolio() {
           ))}
         </h1>
         <p
-          className="intro mt-5 max-w-3xl text-2xl leading-tight font-medium tracking-tight sm:text-4xl"
+          className="intro mt-6 max-w-4xl text-5xl leading-[1.05] font-medium tracking-tight sm:text-7xl"
           style={{ "--delay": "280ms" } as CSSProperties}
         >
           {profile.headline}
