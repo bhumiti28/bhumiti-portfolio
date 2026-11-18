@@ -25,8 +25,9 @@ export function Portfolio() {
           className="scroll-progress absolute inset-x-0 -bottom-px h-px bg-foreground/70"
         />
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:px-8">
-          <a href="#top" className="text-sm font-medium tracking-tight">
-            BG
+          <a href="#top" className="text-base font-medium tracking-tight">
+            <span className="sm:hidden">BG</span>
+            <span className="hidden sm:inline">{profile.name}</span>
           </a>
           <nav aria-label="Sections" className="flex items-center gap-4 text-xs tracking-[0.16em] uppercase sm:gap-6">
             <a href="#work" className="hover:text-foreground/60">
@@ -66,9 +67,9 @@ export function Portfolio() {
         >
           {profile.eyebrow}
         </p>
-        <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] font-medium tracking-tight sm:text-7xl">
-          {profile.headline.split(" ").map((word, i) => (
-            <Fragment key={i}>
+        <h1 className="mt-4 max-w-5xl text-6xl leading-[0.98] font-medium tracking-tight sm:text-8xl">
+          {profile.name.split(" ").map((word, i) => (
+            <Fragment key={word}>
               {i > 0 ? " " : null}
               <span className="rise inline-block overflow-hidden pb-[0.08em] align-bottom">
                 <span style={{ "--i": i } as CSSProperties}>{word}</span>
@@ -76,6 +77,12 @@ export function Portfolio() {
             </Fragment>
           ))}
         </h1>
+        <p
+          className="intro mt-5 max-w-3xl text-2xl leading-tight font-medium tracking-tight sm:text-4xl"
+          style={{ "--delay": "280ms" } as CSSProperties}
+        >
+          {profile.headline}
+        </p>
         <Typewriter className="mt-5 min-h-[1.6em] font-mono text-sm text-foreground/55 sm:text-base" />
         <p
           className="intro mt-5 max-w-2xl text-lg leading-8 text-foreground/70"
@@ -243,7 +250,12 @@ export function Portfolio() {
 
       <footer className="border-t border-foreground/10">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-8 text-sm text-foreground/55 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p>Building reliable data systems for healthcare and enterprise teams.</p>
+          <div>
+            <p>© 2026 {profile.name}. All rights reserved.</p>
+            <p className="mt-1">
+              Building reliable data systems for healthcare and enterprise teams.
+            </p>
+          </div>
           <div className="flex flex-wrap gap-x-5 gap-y-2">
             <a href={`mailto:${profile.email}`} className="hover:text-foreground">
               Email
